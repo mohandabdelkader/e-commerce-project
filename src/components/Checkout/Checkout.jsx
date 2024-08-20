@@ -4,7 +4,6 @@ import { CartContext } from '../../Context/CartContext';
 
 export default function Checkout() {
 	let { checkout, cartId } = useContext(CartContext);
-	console.log(cartId);
 
 	let formik = useFormik({
 		initialValues: {
@@ -16,8 +15,10 @@ export default function Checkout() {
 	});
 
 	async function handelCheckout(cartId, url) {
-		let response = await checkout(cartId, url, formik.values);
-console.log(response);
+		const response = await checkout(cartId, url, formik.values);
+		const paymentURL = response.data.session.url;
+
+		window.location.href = paymentURL;
 	}
 
 	return (

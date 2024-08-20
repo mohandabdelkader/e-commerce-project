@@ -10,11 +10,8 @@ export default function Cart() {
 
 	async function getCart() {
 		let response = await getLoggedUserCart();
-		setCartData(response.data.data)
+		setCartData(response.data.data);
 		console.log(response);
-
-
-
 	}
 
 	useEffect(() => {
@@ -22,17 +19,16 @@ export default function Cart() {
 	}, []);
 
 	async function updateCount(id, newCount) {
-        if(newCount == 0){
-            removeItem(id)
-        }else{
-            let response = await UpdateCartProductQuantity(id, newCount);
+		if (newCount == 0) {
+			removeItem(id);
+		} else {
+			let response = await UpdateCartProductQuantity(id, newCount);
 
-            if (response.data.status == 'success') {
-                setCartData(response.data.data);
-            }
-        }
-        }
-
+			if (response.data.status == 'success') {
+				setCartData(response.data.data);
+			}
+		}
+	}
 
 	async function removeItem(id) {
 		let response = await removeSpecificCartItem(id);
@@ -40,7 +36,6 @@ export default function Cart() {
 			setCartData(response.data.data);
 			toast.success('Item is removed');
 		}
-
 	}
 
 	return (
@@ -111,11 +106,10 @@ export default function Cart() {
 						</tbody>
 					</table>
 					<Link to={'/checkout'}>
-					<button  className=" w-full bg-transparent hover:bg-[#1abc9c] text-[#1abc9c] font-semibold hover:text-white py-2 my-3 px-4 border border-[#1abc9c] hover:border-transparent rounded ">
-								Checkout
-							</button>
+						<button className=" w-full bg-transparent hover:bg-[#1abc9c] text-[#1abc9c] font-semibold hover:text-white py-2 my-3 px-4 border border-[#1abc9c] hover:border-transparent rounded ">
+							Checkout
+						</button>
 					</Link>
-
 				</div>
 			) : (
 				<span className="loader">Loading</span>

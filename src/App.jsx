@@ -3,11 +3,14 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Toaster } from 'react-hot-toast';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import './App.css';
-import CartContextProvider from './Context/CartContext';
-import CounterContextProvider from './Context/ContextCounter';
 import About from './components/About/About';
+import AllOrders from './components/AllOrders/AllOrders';
+import Brands from './components/Brands/Brands';
+import BrandsDetails from './components/BrandsDetails/BrandsDetails';
 import Cart from './components/Cart/Cart';
 import Category from './components/Category/Category';
+import CategoryDetails from './components/CatgegoryDetails/CategoryDetails';
+import Checkout from './components/Checkout/Checkout';
 import Contact from './components/Contact/Contact';
 import Home from './components/Home/Home';
 import Layout from './components/Layout/Layout';
@@ -15,10 +18,9 @@ import Login from './components/Login/Login';
 import ProductDetails from './components/ProductDetails/ProductDetails';
 import Products from './components/Products/products';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
-import CategoryDetails from './components/CatgegoryDetails/CategoryDetails';
-import Brands from './components/Brands/Brands';
-import BrandsDetails from './components/BrandsDetails/BrandsDetails';
-import Checkout from './components/Checkout/Checkout';
+import AllOrdersContextProvider from './Context/AllOrdersContext';
+import CartContextProvider from './Context/CartContext';
+import CounterContextProvider from './Context/ContextCounter';
 
 function App() {
 	let query = new QueryClient();
@@ -57,6 +59,14 @@ function App() {
 					element: (
 						<ProtectedRoute>
 							<Checkout />
+						</ProtectedRoute>
+					)
+				},
+				{
+					path: 'allorders',
+					element: (
+						<ProtectedRoute>
+							<AllOrders />
 						</ProtectedRoute>
 					)
 				},
@@ -118,9 +128,10 @@ function App() {
 			<CounterContextProvider>
 				<QueryClientProvider client={query}>
 					<CartContextProvider>
-						<RouterProvider router={router}></RouterProvider>
-
-						<Toaster />
+						<AllOrdersContextProvider>
+							<RouterProvider router={router}></RouterProvider>
+							<Toaster />
+						</AllOrdersContextProvider>
 					</CartContextProvider>
 
 					<ReactQueryDevtools />
