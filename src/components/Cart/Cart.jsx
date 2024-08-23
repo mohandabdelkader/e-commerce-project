@@ -5,7 +5,7 @@ import { CartContext } from './../../Context/CartContext';
 
 export default function Cart() {
 	const [cartData, setCartData] = useState(null);
-	const{setCartNumber,cartNumber}=useContext(CartContext)
+	const { setCartNumber } = useContext(CartContext);
 
 	let { getLoggedUserCart, UpdateCartProductQuantity, removeSpecificCartItem } = useContext(CartContext);
 
@@ -35,7 +35,7 @@ export default function Cart() {
 		let response = await removeSpecificCartItem(id);
 		if (response.data.status == 'success') {
 			setCartData(response.data.data);
-			setCartNumber(cartNumber-1)
+			setCartNumber((prev) => prev - 1);
 
 			toast.success('Item is removed');
 		}

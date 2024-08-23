@@ -8,17 +8,12 @@ import useProducts from '../../Hooks/useProducts';
 
 export default function NewProducts() {
 	let { data, isError, error, isLoading } = useProducts();
-	let { AddProductToCart,setCartNumber,cartNumber } = useContext(CartContext);
+	let { AddProductToCart } = useContext(CartContext);
 
 	async function addCart(id) {
 		let response = await AddProductToCart(id);
 		if (response.data.message == 'success') {
-
 			toast.success(response.data.message);
-
-
-
-
 		} else {
 			toast.success(response.data.message);
 		}
@@ -55,9 +50,7 @@ export default function NewProducts() {
 									className="bg-transparent hover:bg-[#1abc9c] text-[#1abc9c] font-semibold hover:text-white py-2 my-3 px-4 border border-[#1abc9c] hover:border-transparent rounded ">
 									Add to cart
 								</button>
-								<button
-
-									className="bg-transparent hover:bg-[#1abc9c] text-[#1abc9c] font-semibold hover:text-white py-2 my-3 px-4 border border-[#1abc9c] hover:border-transparent rounded ">
+								<button className="bg-transparent hover:bg-[#1abc9c] text-[#1abc9c] font-semibold hover:text-white py-2 my-3 px-4 border border-[#1abc9c] hover:border-transparent rounded ">
 									Add to My WashList
 								</button>
 							</div>

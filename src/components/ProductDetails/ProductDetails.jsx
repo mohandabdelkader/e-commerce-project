@@ -1,20 +1,16 @@
 import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 import { Link, useParams } from 'react-router-dom';
 import Slider from 'react-slick';
 import { CartContext } from '../../Context/CartContext';
-import toast from 'react-hot-toast';
-import createAxiosInstance from '../../library/api';
 import { endPoint } from '../../enum/endpoint';
-
-
-
-
+import createAxiosInstance from '../../library/api';
 
 export default function ProductDetails() {
-	const apiBase=createAxiosInstance()
-	let {AddProductToCart,CartNumber,setCartNumber}=useContext(CartContext)
-	const [cartData, setCartData] = useState(null)
+	const apiBase = createAxiosInstance();
+	let { AddProductToCart } = useContext(CartContext);
+
 	let { id, category } = useParams();
 	const [pro, setPro] = useState(null);
 	const [relatedData, setRelatedData] = useState([]);
@@ -30,14 +26,11 @@ export default function ProductDetails() {
 	async function getCart(id) {
 		let response = await AddProductToCart(id);
 		if (response.data.message == 'success') {
-
 			toast.success(response.data.message);
-
 		} else {
-
 			toast.success(response.data.message);
 		}
-console.log(response);
+		console.log(response);
 	}
 
 	function getProduct() {
@@ -45,8 +38,6 @@ console.log(response);
 			.get(`${endPoint.PRODUCTS}/${id}`)
 			.then((res) => {
 				setPro(res.data.data);
-
-
 			})
 			.catch((res) => {});
 	}
@@ -57,7 +48,6 @@ console.log(response);
 				// Array of 40 products
 				const related = res.data.data.filter((product) => product.category.name === category);
 				setRelatedData(related);
-
 			})
 			.catch((res) => {});
 	}
@@ -74,10 +64,11 @@ console.log(response);
 				<div className="row items-center ">
 					<div className="w-1/4 px-4">
 						<Slider {...settings}>
-
-							{pro.images.map((src)=> <div key={pro._id}>
-								<img src={src} alt="" />
-							</div>)}
+							{pro.images.map((src) => (
+								<div key={pro._id}>
+									<img src={src} alt="" />
+								</div>
+							))}
 						</Slider>
 						{/* <img src={pro.imageCover} alt="" className="w-full " /> */}
 					</div>
@@ -90,14 +81,14 @@ console.log(response);
 							</span>
 							<h4 className="py-3">{pro.price} EG</h4>
 							<h4 className="py-3">{pro.category.name} </h4>
-							<button onClick={()=>getCart(pro._id)} className=" w-full bg-transparent hover:bg-[#1abc9c] text-[#1abc9c] font-semibold hover:text-white py-2 my-3 px-4 border border-[#1abc9c] hover:border-transparent rounded ">
+							<button
+								onClick={() => getCart(pro._id)}
+								className=" w-full bg-transparent hover:bg-[#1abc9c] text-[#1abc9c] font-semibold hover:text-white py-2 my-3 px-4 border border-[#1abc9c] hover:border-transparent rounded ">
 								Add to cart
 							</button>
-							<button
-
-									className=" w-full bg-transparent hover:bg-[#1abc9c] text-[#1abc9c] font-semibold hover:text-white py-2 my-3 px-4 border border-[#1abc9c] hover:border-transparent rounded ">
-									Add to My WashList
-								</button>
+							<button className=" w-full bg-transparent hover:bg-[#1abc9c] text-[#1abc9c] font-semibold hover:text-white py-2 my-3 px-4 border border-[#1abc9c] hover:border-transparent rounded ">
+								Add to My WashList
+							</button>
 						</div>
 					</div>
 				</div>
@@ -124,14 +115,14 @@ console.log(response);
 										</span>
 										<h6 className="py-3">{product.price} EG</h6>
 
-										<button onClick={()=>getCart(product._id)} className="bg-transparent hover:bg-[#1abc9c] text-[#1abc9c] font-semibold hover:text-white py-2 my-3 px-4 border border-[#1abc9c] hover:border-transparent rounded ">
+										<button
+											onClick={() => getCart(product._id)}
+											className="bg-transparent hover:bg-[#1abc9c] text-[#1abc9c] font-semibold hover:text-white py-2 my-3 px-4 border border-[#1abc9c] hover:border-transparent rounded ">
 											Add to cart
 										</button>
-										<button
-
-									className="bg-transparent hover:bg-[#1abc9c] text-[#1abc9c] font-semibold hover:text-white py-2 my-3 px-4 border border-[#1abc9c] hover:border-transparent rounded ">
-									Add to My WashList
-								</button>
+										<button className="bg-transparent hover:bg-[#1abc9c] text-[#1abc9c] font-semibold hover:text-white py-2 my-3 px-4 border border-[#1abc9c] hover:border-transparent rounded ">
+											Add to My WashList
+										</button>
 									</div>
 								</div>
 							</div>

@@ -5,7 +5,7 @@ export let CartContext = createContext();
 
 export default function CartContextProvider({ children }) {
 	const [cartId, setCartId] = useState(null);
-	const [cartNumber, setCartNumber] = useState(0)
+	const [cartNumber, setCartNumber] = useState(0);
 
 	function AddProductToCart(id) {
 		return axios
@@ -26,8 +26,7 @@ export default function CartContextProvider({ children }) {
 				headers: { token: localStorage.getItem('token') }
 			})
 			.then((res) => {
-				console.log(res.data.numOfCartItems);
-				setCartNumber(res.data.numOfCartItems)
+				setCartNumber(res.data.numOfCartItems);
 				setCartId(res.data.data._id.toString());
 				return res;
 			})

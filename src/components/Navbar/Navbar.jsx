@@ -1,12 +1,15 @@
-import { useContext } from 'react';
+import { useContext, useRef } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { CartContext } from '../../Context/CartContext';
 import { CounterContext } from '../../Context/ContextCounter';
 
 export default function Navbar() {
 	let { userToken, setUserToken } = useContext(CounterContext);
-	const { setCartNumber, cartNumber } = useContext(CartContext);
+	const { cartNumber } = useContext(CartContext);
 	let navigate = useNavigate();
+
+	const headerRef = useRef(null);
+	headerRef.current.classList.add('bg-red-500');
 
 	function logout(e) {
 		e.preventDefault();
@@ -17,7 +20,7 @@ export default function Navbar() {
 
 	return (
 		<>
-			<nav className="fixed top-0 left-0 right-0 z-50 bg-[#F8F9FA]">
+			<nav className="fixed top-0 left-0 right-0 z-50 bg-[#F8F9FA]" ref={headerRef}>
 				<div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
 					{userToken != null ? (
 						<div className="flex flex-row justify-start items-center gap-8">
@@ -25,7 +28,6 @@ export default function Navbar() {
 								<img src="https://flowbite.com/docs/images/logo.svg" />
 							</Link>
 							<ul className="font-bold flex flex-col p-4 md:p-0 mt-4 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 active">
-								
 								<li>
 									<NavLink to="/" className="block text-black focus:underline">
 										home
@@ -65,7 +67,9 @@ export default function Navbar() {
 							<ul className="flex  ">
 								<li className="">
 									<Link to={'/cart'} className="p-5 text-1xl ">
-										<i className="fa-solid fa-cart-shopping rounded-lg text-emerald-700 "><span className='px-2'>{cartNumber}</span></i>
+										<i className="fa-solid fa-cart-shopping rounded-lg text-emerald-700 ">
+											<span className="px-2">{cartNumber}</span>
+										</i>
 									</Link>
 								</li>
 								<li>
