@@ -1,15 +1,17 @@
 import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import Slider from 'react-slick';
 import { CartContext } from '../../Context/CartContext';
 import { endPoint } from '../../enum/endpoint';
 import createAxiosInstance from '../../library/api';
+import { useAddToCart } from '../../services/cart/useAddToCart';
+import ProductCard from '../ProductCard/ProductCard';
 
 export default function ProductDetails() {
 	const apiBase = createAxiosInstance();
-	let { AddProductToCart } = useContext(CartContext);
+	let { setCartNumber } = useContext(CartContext);
+	const { addToCart } = useAddToCart();
 
 	let { id, category } = useParams();
 	const [pro, setPro] = useState(null);
@@ -23,15 +25,6 @@ export default function ProductDetails() {
 		autoplay: false,
 		autoplaySpeed: 1000
 	};
-	async function getCart(id) {
-		let response = await AddProductToCart(id);
-		if (response.data.message == 'success') {
-			toast.success(response.data.message);
-		} else {
-			toast.success(response.data.message);
-		}
-		console.log(response);
-	}
 
 	function getProduct() {
 		apiBase
@@ -82,7 +75,7 @@ export default function ProductDetails() {
 							<h4 className="py-3">{pro.price} EG</h4>
 							<h4 className="py-3">{pro.category.name} </h4>
 							<button
-								onClick={() => getCart(pro._id)}
+								onClick={() => addToCart(pro._id, setCartNumber)(pro._id)}
 								className=" w-full bg-transparent hover:bg-[#1abc9c] text-[#1abc9c] font-semibold hover:text-white py-2 my-3 px-4 border border-[#1abc9c] hover:border-transparent rounded ">
 								Add to cart
 							</button>
@@ -101,31 +94,7 @@ export default function ProductDetails() {
 				{relatedData.length > 0 ? (
 					<div className="row">
 						{relatedData.map((product) => (
-							<div className="w-1/6" key={product._id}>
-								<div className="pro p-3 text-center">
-									<Link to={`/productdetails/${product._id}/${product.category.name}`}>
-										<img src={product.imageCover} alt="" className="w-full" />
-										<h3 className="text-emerald-500">{product.category.name}</h3>
-										<h3 className="text-emerald-500">{product.title.slice(0, 10)}</h3>
-									</Link>
-
-									<div className="py-3">
-										<span>
-											<i className="fas fa-star text-yellow-500 px-2">{product.ratingsAverage}</i>
-										</span>
-										<h6 className="py-3">{product.price} EG</h6>
-
-										<button
-											onClick={() => getCart(product._id)}
-											className="bg-transparent hover:bg-[#1abc9c] text-[#1abc9c] font-semibold hover:text-white py-2 my-3 px-4 border border-[#1abc9c] hover:border-transparent rounded ">
-											Add to cart
-										</button>
-										<button className="bg-transparent hover:bg-[#1abc9c] text-[#1abc9c] font-semibold hover:text-white py-2 my-3 px-4 border border-[#1abc9c] hover:border-transparent rounded ">
-											Add to My WashList
-										</button>
-									</div>
-								</div>
-							</div>
+							<ProductCard product={product} key={product._id} />
 						))}
 					</div>
 				) : (
