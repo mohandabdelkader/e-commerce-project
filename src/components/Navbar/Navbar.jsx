@@ -1,4 +1,4 @@
-import { useContext, useRef } from 'react';
+import { useContext } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { CartContext } from '../../Context/CartContext';
 import { CounterContext } from '../../Context/ContextCounter';
@@ -7,9 +7,6 @@ export default function Navbar() {
 	let { userToken, setUserToken } = useContext(CounterContext);
 	const { cartNumber } = useContext(CartContext);
 	let navigate = useNavigate();
-
-	const headerRef = useRef(null);
-	headerRef.current.classList.add('bg-red-500');
 
 	function logout(e) {
 		e.preventDefault();
@@ -20,7 +17,7 @@ export default function Navbar() {
 
 	return (
 		<>
-			<nav className="fixed top-0 left-0 right-0 z-50 bg-[#F8F9FA]" ref={headerRef}>
+			<nav className="fixed top-0 left-0 right-0 z-50 bg-[#F8F9FA]">
 				<div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
 					{userToken != null ? (
 						<div className="flex flex-row justify-start items-center gap-8">
