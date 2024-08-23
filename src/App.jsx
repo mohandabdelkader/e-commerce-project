@@ -3,7 +3,9 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Toaster } from 'react-hot-toast';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import './App.css';
-import About from './components/About/About';
+import AllOrdersContextProvider from './Context/AllOrdersContext';
+import CartContextProvider from './Context/CartContext';
+import CounterContextProvider from './Context/ContextCounter';
 import AllOrders from './components/AllOrders/AllOrders';
 import Brands from './components/Brands/Brands';
 import BrandsDetails from './components/BrandsDetails/BrandsDetails';
@@ -18,9 +20,9 @@ import Login from './components/Login/Login';
 import ProductDetails from './components/ProductDetails/ProductDetails';
 import Products from './components/Products/products';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
-import AllOrdersContextProvider from './Context/AllOrdersContext';
-import CartContextProvider from './Context/CartContext';
-import CounterContextProvider from './Context/ContextCounter';
+import WashList from './components/WashList/WashList';
+import WashListProvider from './Context/WashListContext';
+
 
 function App() {
 	let query = new QueryClient();
@@ -29,14 +31,6 @@ function App() {
 			path: '/',
 			element: <Layout />,
 			children: [
-				{
-					path: 'about',
-					element: (
-						<ProtectedRoute>
-							<About />
-						</ProtectedRoute>
-					)
-				},
 				{ path: 'contact', element: <Contact /> },
 				{
 					path: 'products',
@@ -75,6 +69,14 @@ function App() {
 					element: (
 						<ProtectedRoute>
 							<Category />
+						</ProtectedRoute>
+					)
+				},
+				{
+					path: 'washlist',
+					element: (
+						<ProtectedRoute>
+							<WashList />
 						</ProtectedRoute>
 					)
 				},
@@ -129,7 +131,10 @@ function App() {
 				<QueryClientProvider client={query}>
 					<CartContextProvider>
 						<AllOrdersContextProvider>
-							<RouterProvider router={router}></RouterProvider>
+							<WashListProvider>
+								<RouterProvider router={router}></RouterProvider>
+							</WashListProvider>
+
 							<Toaster />
 						</AllOrdersContextProvider>
 					</CartContextProvider>

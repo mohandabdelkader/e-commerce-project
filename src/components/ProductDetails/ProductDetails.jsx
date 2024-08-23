@@ -13,7 +13,7 @@ import { endPoint } from '../../enum/endpoint';
 
 export default function ProductDetails() {
 	const apiBase=createAxiosInstance()
-	let {AddProductToCart}=useContext(CartContext)
+	let {AddProductToCart,CartNumber,setCartNumber}=useContext(CartContext)
 	const [cartData, setCartData] = useState(null)
 	let { id, category } = useParams();
 	const [pro, setPro] = useState(null);
@@ -32,6 +32,7 @@ export default function ProductDetails() {
 		if (response.data.message == 'success') {
 
 			toast.success(response.data.message);
+
 		} else {
 
 			toast.success(response.data.message);
@@ -44,6 +45,8 @@ console.log(response);
 			.get(`${endPoint.PRODUCTS}/${id}`)
 			.then((res) => {
 				setPro(res.data.data);
+
+
 			})
 			.catch((res) => {});
 	}
@@ -54,6 +57,7 @@ console.log(response);
 				// Array of 40 products
 				const related = res.data.data.filter((product) => product.category.name === category);
 				setRelatedData(related);
+
 			})
 			.catch((res) => {});
 	}
@@ -89,6 +93,11 @@ console.log(response);
 							<button onClick={()=>getCart(pro._id)} className=" w-full bg-transparent hover:bg-[#1abc9c] text-[#1abc9c] font-semibold hover:text-white py-2 my-3 px-4 border border-[#1abc9c] hover:border-transparent rounded ">
 								Add to cart
 							</button>
+							<button
+
+									className=" w-full bg-transparent hover:bg-[#1abc9c] text-[#1abc9c] font-semibold hover:text-white py-2 my-3 px-4 border border-[#1abc9c] hover:border-transparent rounded ">
+									Add to My WashList
+								</button>
 						</div>
 					</div>
 				</div>
@@ -118,6 +127,11 @@ console.log(response);
 										<button onClick={()=>getCart(product._id)} className="bg-transparent hover:bg-[#1abc9c] text-[#1abc9c] font-semibold hover:text-white py-2 my-3 px-4 border border-[#1abc9c] hover:border-transparent rounded ">
 											Add to cart
 										</button>
+										<button
+
+									className="bg-transparent hover:bg-[#1abc9c] text-[#1abc9c] font-semibold hover:text-white py-2 my-3 px-4 border border-[#1abc9c] hover:border-transparent rounded ">
+									Add to My WashList
+								</button>
 									</div>
 								</div>
 							</div>

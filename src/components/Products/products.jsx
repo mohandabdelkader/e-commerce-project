@@ -3,17 +3,39 @@ import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import { CartContext } from '../../Context/CartContext';
 import useProducts from '../../Hooks/useProducts';
+import { WashListContext } from '../../Context/WashListContext';
+
 
 //https://ecommerce.routemisr.com/api/v1/products
 
 export default function Products() {
 	const [addData, setAddData] = useState(null);
-	let { AddProductToCart } = useContext(CartContext);
+	let { AddProductToCart, setCartNumber, CartNumber } = useContext(CartContext);
+	const [washListItem, setWashListItem] = useState(null);
+
+	const { addProductToWishlist } = useContext(WashListContext);
+
+	async function addWashList(id) {
+		try {
+			const response = await addProductToWishlist(id);
+			if (response.data.status === 'success') {
+				toast.success(response.data.message);
+				setWashListItem(response.data.data);
+				console.log(response.data.data);
+			} else {
+				toast.error(response.data.message);
+			}
+		} catch (error) {
+			toast.error('An error occurred while adding to the wishlist');
+			console.error(error);
+		}
+	}
 
 	async function addProducts(id) {
 		let response = await AddProductToCart(id);
 		if (response.data.status == 'success') {
 			toast.success(response.data.message);
+			setCartNumber(CartNumber + 1);
 			setAddData(response.data.data);
 		} else {
 			toast.error(response.data.message);
@@ -29,6 +51,21 @@ export default function Products() {
 	if (isLoading) {
 		return <span className="loader">Loading</span>;
 	}
+
+	// async function addWashList(id) {
+	// 	try {
+	// 		const response = await addProductToWishlist(id);
+	// 		if (response && response.data.status === 'success') {
+	// 			toast.success(response.data.message);
+	// 			console.log(response);
+	// 		} else {
+	// 			toast.error(response.data.message);
+	// 		}
+	// 	} catch (error) {
+	// 		toast.error("An error occurred while adding to the wishlist");
+	// 		console.log(error);
+	// 	}
+	// }
 
 	return (
 		<>
@@ -53,6 +90,11 @@ export default function Products() {
 									onClick={() => addProducts(product._id)}
 									className="bg-transparent hover:bg-[#1abc9c] text-[#1abc9c] font-semibold hover:text-white py-2 my-3 px-4 border border-[#1abc9c] hover:border-transparent rounded ">
 									Add to card
+								</button>
+								<button
+									onClick={() => addWashList(product._id)}
+									className="bg-transparent hover:bg-[#1abc9c] text-[#1abc9c] font-semibold hover:text-white py-2 my-3 px-4 border border-[#1abc9c] hover:border-transparent rounded ">
+									Add to My WashList
 								</button>
 							</div>
 						</div>

@@ -1,9 +1,11 @@
 import { useContext } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { CartContext } from '../../Context/CartContext';
 import { CounterContext } from '../../Context/ContextCounter';
 
 export default function Navbar() {
 	let { userToken, setUserToken } = useContext(CounterContext);
+	const { setCartNumber, cartNumber } = useContext(CartContext);
 	let navigate = useNavigate();
 
 	function logout(e) {
@@ -23,11 +25,7 @@ export default function Navbar() {
 								<img src="https://flowbite.com/docs/images/logo.svg" />
 							</Link>
 							<ul className="font-bold flex flex-col p-4 md:p-0 mt-4 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 active">
-								<li>
-									<NavLink to="about" className="block text-black">
-										about
-									</NavLink>
-								</li>
+								
 								<li>
 									<NavLink to="/" className="block text-black focus:underline">
 										home
@@ -41,6 +39,11 @@ export default function Navbar() {
 								<li>
 									<NavLink to="cart" className="block text-black focus:underline">
 										Cart
+									</NavLink>
+								</li>
+								<li>
+									<NavLink to="washlist" className="block text-black focus:underline">
+										WashList
 									</NavLink>
 								</li>
 								<li>
@@ -59,9 +62,18 @@ export default function Navbar() {
 
 					<div className="hidden w-full md:block md:w-auto">
 						{userToken != null ? (
-							<NavLink onClick={logout} to="/login" className="block">
-								Logout
-							</NavLink>
+							<ul className="flex  ">
+								<li className="">
+									<Link to={'/cart'} className="p-5 text-1xl ">
+										<i className="fa-solid fa-cart-shopping rounded-lg text-emerald-700 "><span className='px-2'>{cartNumber}</span></i>
+									</Link>
+								</li>
+								<li>
+									<NavLink onClick={logout} to="/login" className="block origin-center font-bold capitalize">
+										Logout
+									</NavLink>
+								</li>
+							</ul>
 						) : (
 							<ul className="font-bold flex flex-col p-4 md:p-0 mt-4 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0">
 								<li>
