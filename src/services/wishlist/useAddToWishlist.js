@@ -1,16 +1,14 @@
 import axios from 'axios';
-import { useContext } from 'react';
 import toast from 'react-hot-toast';
-import { CartContext } from '../../Context/CartContext';
 
 export function useAddToWishlist() {
-	let { setCartNumber } = useContext(CartContext);
-
-	const addToCart = async (id) => {
-		axios
+	const addToWishlist = async (id) => {
+		return axios
 			.post(
-				`https://ecommerce.routemisr.com/api/v1/cart`,
-				{ productId: id },
+				`https://ecommerce.routemisr.com/api/v1/wishlist`,
+				{
+					productId: id
+				},
 				{
 					headers: { token: localStorage.getItem('token') }
 				}
@@ -18,7 +16,6 @@ export function useAddToWishlist() {
 			.then((res) => {
 				if (res.data.status == 'success') {
 					toast.success(res.data.message);
-					setCartNumber((prev) => prev + 1);
 				} else {
 					toast.error(res.data.message);
 				}
@@ -26,5 +23,5 @@ export function useAddToWishlist() {
 			.catch((err) => err);
 	};
 
-	return { addToCart };
+	return { addToWishlist };
 }

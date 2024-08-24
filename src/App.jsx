@@ -3,9 +3,6 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Toaster } from 'react-hot-toast';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import './App.css';
-import AllOrdersContextProvider from './Context/AllOrdersContext';
-import CartContextProvider from './Context/CartContext';
-import CounterContextProvider from './Context/ContextCounter';
 import AllOrders from './components/AllOrders/AllOrders';
 import Brands from './components/Brands/Brands';
 import BrandsDetails from './components/BrandsDetails/BrandsDetails';
@@ -21,8 +18,10 @@ import ProductDetails from './components/ProductDetails/ProductDetails';
 import Products from './components/Products/products';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import WashList from './components/WashList/WashList';
+import AllOrdersContextProvider from './Context/AllOrdersContext';
+import CartContextProvider from './Context/CartContext';
+import CounterContextProvider from './Context/ContextCounter';
 import WashListProvider from './Context/WashListContext';
-
 
 function App() {
 	let query = new QueryClient();
@@ -73,7 +72,7 @@ function App() {
 					)
 				},
 				{
-					path: 'washlist',
+					path: 'wishlist',
 					element: (
 						<ProtectedRoute>
 							<WashList />

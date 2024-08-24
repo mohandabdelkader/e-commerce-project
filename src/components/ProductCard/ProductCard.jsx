@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom';
 import { useAddToCart } from '../../services/cart/useAddToCart';
+import { useAddToWishlist } from '../../services/wishlist/useAddToWishlist';
 
 export default function ProductCard({ product }) {
 	const { addToCart } = useAddToCart();
+	const { addToWishlist } = useAddToWishlist();
 
 	return (
 		<div className="w-1/6" key={product._id}>
@@ -26,7 +28,7 @@ export default function ProductCard({ product }) {
 							Add to card
 						</button>
 						<button
-							onClick={() => {}}
+							onClick={() => addToWishlist(product._id)}
 							className="bg-transparent hover:bg-[#1abc9c] text-[#1abc9c] font-semibold hover:text-white p-2 border border-[#1abc9c] hover:border-transparent rounded ">
 							<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
 								<path
