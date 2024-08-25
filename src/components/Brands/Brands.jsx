@@ -17,27 +17,38 @@ export default function Brands() {
         queryFn: getAllBrands,
     });
 
-    if (isLoading) return <div>Loading...</div>;
+
+
+
+	if (isLoading) {
+		return (
+			<h1 className="  p-20 flex justify-center  items-center h-screen">
+				<i className="fa-solid fa-spinner fa-spin text-7xl"></i>
+
+			</h1>
+		);
+    }
     if (isError) return <div>Error: {error.message}</div>;
 
     return (
         <>
             <h1 className="capitalize text-black-600 text-center font-bold my-3">My Products</h1>
+
             <div className="row">
                 {data?.data.map((brand) => (
-                    <div className="w-1/6" key={brand._id}>
-                        <div className="pro p-3 text-center">
-                            <Link to={`/brandsdetails/${brand._id}`}>
-                                <img src={brand.image} alt="" className="w-full" />
-                                <h3 className="text-emerald-500">
+                    <div className="flex flex-row sm:   shadow-xl " key={brand._id}>
+                        <div className="pro p-3 text-center shadow-slate-200 ">
+                            <div className=' hover:shadow-xl shadow-slate-950'>
+                            <Link to={`#`} className='hover:shadow-lg shadow-slate-400 '>
+                                <img src={brand.image} alt="" className="w-full " />
+                                <h3 className="text-emerald-500 font-bold capitalize text-xl ">
                                     {brand.name.split('').splice(0, 2).join('')}
                                 </h3>
                             </Link>
+                            </div>
+
                             <div className="py-3">
-                                <button
-                                    className="bg-transparent hover:bg-[#1abc9c] text-[#1abc9c] font-semibold hover:text-white py-2 my-3 px-4 border border-[#1abc9c] hover:border-transparent rounded ">
-                                    Add to cart
-                                </button>
+
                             </div>
                         </div>
                     </div>

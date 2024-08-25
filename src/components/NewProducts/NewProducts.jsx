@@ -24,11 +24,17 @@ export default function NewProducts() {
 	}
 
 	if (isLoading) {
-		return <span className="loader">Loading</span>;
+		return (
+			<h1 className="  p-20 flex justify-center  items-center h-screen">
+				<i className="fa-solid fa-spinner fa-spin text-7xl"></i>
+
+			</h1>
+		);
 	}
 
 	return (
 		<>
+		<h1 className="capitalize font-bold py-3 lg:text-4xl sm:text-xl md:text-center">shop popular Products</h1>
 			<div className="row">
 				{data.map((product) => (
 					<ProductCard product={product} key={product._id} />

@@ -7,13 +7,17 @@ import { useAddToCart } from '../../services/cart/useAddToCart';
 export default function WashList() {
 	const { getLoggedUserWishlist, removeProductFromWishlist } = useContext(WashListContext);
 	const [washListItem, setWashListItem] = useState([]);
-	const { addToCart } = useAddToCart();
+	const { addToCart ,loading,addId } = useAddToCart();
+	const [loadingRemoveWishList, setLoadingRemoveWishList] = useState(false)
+	const [loadingId, setLoadingId] = useState(null)
+
 
 	const getWashList = useCallback(async () => {
 		try {
 			let response = await getLoggedUserWishlist();
 			if (response.data.status === 'success') {
 				setWashListItem(response.data.data);
+
 			} else {
 				toast.error(response.data.message);
 			}
@@ -27,19 +31,22 @@ export default function WashList() {
 	}, [getWashList]);
 
 	async function removeItem(id) {
+		setLoadingId(id)
+		setLoadingRemoveWishList(true)
 		let response = await removeProductFromWishlist(id);
 
 		if (response.data.status == 'success') {
 			toast.success('Item is removed');
 			getWashList();
+			setLoadingRemoveWishList(false)
 		}
 	}
 
 	if (!washListItem.length) {
 		return (
-			<div className="h-screen flex flex-col justify-center items-center">
-				<p className="text-xl font-semibold">Loading products...</p>
-			</div>
+			<h1 className="  p-20 flex justify-center  items-center h-screen">
+				<i className="fa-solid fa-spinner fa-spin text-7xl"></i>
+			</h1>
 		);
 	}
 
@@ -60,12 +67,12 @@ export default function WashList() {
 							<button
 								className="w-full bg-transparent hover:bg-[#1abc9c] text-[#1abc9c] font-semibold hover:text-white py-2 px-4 border border-[#1abc9c] hover:border-transparent rounded"
 								onClick={() => addToCart(product._id)}>
-								Add to My cart
+								{loading&&addId == product._id  ? <i className="fa-solid fa-spinner fa-spin"></i>:"Add To My Cart"}
 							</button>
 							<button
 								onClick={() => removeItem(product._id)}
 								className="w-full bg-transparent hover:bg-[#1abc9c] text-[#1abc9c] font-semibold hover:text-white py-2 px-4 border border-[#1abc9c] hover:border-transparent rounded ">
-								Remove from wishList
+								{loadingRemoveWishList&&loadingId == product._id ?<i className="fa-solid fa-spinner fa-spin"></i>:"Remove From WishList" }
 							</button>
 						</div>
 					</div>

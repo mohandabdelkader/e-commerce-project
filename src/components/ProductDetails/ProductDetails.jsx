@@ -11,7 +11,8 @@ import ProductCard from '../ProductCard/ProductCard';
 export default function ProductDetails() {
 	const apiBase = createAxiosInstance();
 	let { setCartNumber } = useContext(CartContext);
-	const { addToCart } = useAddToCart();
+	const { addToCart ,loading } = useAddToCart();
+
 
 	let { id, category } = useParams();
 	const [pro, setPro] = useState(null);
@@ -50,12 +51,30 @@ export default function ProductDetails() {
 		relatedProducts();
 	}, [id, category]);
 
+
+	if(pro == null){
+		return (
+			<h1 className="  p-20 flex justify-center  items-center h-screen">
+				<i className="fa-solid fa-spinner fa-spin text-7xl"></i>
+
+			</h1>
+		);
+	}
+	if(relatedData.length <0){
+		return (
+			<h1 className="  p-20 flex justify-center  items-center h-screen">
+				<i className="fa-solid fa-spinner fa-spin text-7xl"></i>
+
+			</h1>
+		);
+	}
+
 	return (
 		<>
 			{/* Product details */}
-			{pro ? (
-				<div className="row items-center ">
-					<div className="w-1/4 px-4">
+
+				<div className="row flex justify-center items-center my-16 ">
+					<div className=" lg:w-1/4  md:w-1/2 sm:w-full max-w-xs px-4">
 						<Slider {...settings}>
 							{pro.images.map((src) => (
 								<div key={pro._id}>
@@ -66,7 +85,7 @@ export default function ProductDetails() {
 						{/* <img src={pro.imageCover} alt="" className="w-full " /> */}
 					</div>
 					<div className="w-3/4 ">
-						<h2 className="font-semibold capitalize py-3">{pro.title}</h2>
+						<h2 className="font-semibold capitalize py-3 my-8 ">{pro.title}</h2>
 						<h3 className="text-slate-700 ">{pro.description}</h3>
 						<div>
 							<span>
@@ -77,7 +96,7 @@ export default function ProductDetails() {
 							<button
 								onClick={() => addToCart(pro._id, setCartNumber)(pro._id)}
 								className=" w-full bg-transparent hover:bg-[#1abc9c] text-[#1abc9c] font-semibold hover:text-white py-2 my-3 px-4 border border-[#1abc9c] hover:border-transparent rounded ">
-								Add to cart
+								{loading ? <i className="fa-solid fa-spinner fa-spin "></i>:"Add To Cart"}
 							</button>
 							<button className=" w-full bg-transparent hover:bg-[#1abc9c] text-[#1abc9c] font-semibold hover:text-white py-2 my-3 px-4 border border-[#1abc9c] hover:border-transparent rounded ">
 								Add to My WashList
@@ -85,21 +104,17 @@ export default function ProductDetails() {
 						</div>
 					</div>
 				</div>
-			) : (
-				<span className="loader "></span>
-			)}
+
 
 			{/* Related products */}
 			<div>
-				{relatedData.length > 0 ? (
+
 					<div className="row">
 						{relatedData.map((product) => (
 							<ProductCard product={product} key={product._id} />
 						))}
 					</div>
-				) : (
-					<span className="loader "></span>
-				)}
+
 			</div>
 		</>
 	);

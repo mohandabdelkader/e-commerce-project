@@ -31,7 +31,7 @@ export default function MainSlider() {
     </Slider>
 
     </div>
-    <div className='w-1/4'>
+    <div className='w-1/4 '>
         <img src={slider2} alt="" className='w-full h-[200px] object-cover' />
         <img src={slider3} alt="" className='w-full h-[200px] object-cover' />
     </div>

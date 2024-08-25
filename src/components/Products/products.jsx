@@ -9,7 +9,12 @@ export default function Products() {
 	}
 
 	if (isLoading) {
-		return <span className="loader">Loading</span>;
+		return (
+			<h1 className="  p-20 flex justify-center  items-center h-screen">
+				<i className="fa-solid fa-spinner fa-spin text-7xl"></i>
+
+			</h1>
+		);
 	}
 
 	return (

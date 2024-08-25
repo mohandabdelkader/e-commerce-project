@@ -24,8 +24,8 @@ export default function Checkout() {
 	return (
 		<>
 			<h1 className="fa-2x font-bold text-slate-950 text-center uppercase my-3">Login section</h1>
-			<form onSubmit={formik.handleSubmit} className="max-w-md mx-auto py-3">
-				<div className="relative z-0 w-full mb-5 group">
+			<form onSubmit={formik.handleSubmit} className="max-w-md mx-auto py-3  shadow-xl shadow-slate-200 ">
+				<div className="relative z-0 w-full mb-5 group ">
 					<input
 						onBlur={formik.handleBlur}
 						onChange={formik.handleChange}

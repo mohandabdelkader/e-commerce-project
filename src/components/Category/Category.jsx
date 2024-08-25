@@ -18,7 +18,12 @@ export default function Category() {
 	console.log(data);
 
 	if (isLoading) {
-		return <h1 className="bg-black text-white p-20">is Loading.......</h1>;
+		return (
+			<h1 className="  p-20 flex justify-center  items-center h-screen">
+				<i className="fa-solid fa-spinner fa-spin text-7xl"></i>
+
+			</h1>
+		);
 	}
 
 	if (isError) {

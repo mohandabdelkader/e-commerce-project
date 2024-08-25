@@ -7,18 +7,30 @@ export default function CartContextProvider({ children }) {
 	const [cartId, setCartId] = useState(null);
 	const [cartNumber, setCartNumber] = useState(0);
 
-	function AddProductToCart(id) {
-		return axios
-			.post(
-				`https://ecommerce.routemisr.com/api/v1/cart`,
-				{ productId: id },
-				{
-					headers: { token: localStorage.getItem('token') }
-				}
-			)
-			.then((res) => res)
-			.catch((err) => err);
-	}
+
+
+
+	// function AddProductToCart(id) {
+
+	// 	return axios
+	// 		.post(
+	// 			`https://ecommerce.routemisr.com/api/v1/cart`,
+	// 			{ productId: id },
+	// 			{
+	// 				headers: { token: localStorage.getItem('token') }
+	// 			}
+	// 		)
+	// 		.then((res) => {
+
+	// 			return res
+	// 		})
+
+	// 		.catch((err) => {
+
+	// 			return err
+	// 		})
+
+	// }
 
 	const getLoggedUserCart = useCallback(() => {
 		return axios
@@ -27,7 +39,7 @@ export default function CartContextProvider({ children }) {
 			})
 			.then((res) => {
 				setCartNumber(res.data.numOfCartItems);
-				setCartId(res.data.data._id.toString());
+				setCartId(res.data.data._id);
 				return res;
 			})
 			.catch((err) => err);
@@ -69,14 +81,16 @@ export default function CartContextProvider({ children }) {
 	}, [getLoggedUserCart]);
 
 	const value = {
-		AddProductToCart,
+		// AddProductToCart,
 		getLoggedUserCart,
 		UpdateCartProductQuantity,
 		removeSpecificCartItem,
 		checkout,
 		cartId,
 		setCartNumber,
-		cartNumber
+		cartNumber,
+
+
 	};
 
 	return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

@@ -3,12 +3,15 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Toaster } from 'react-hot-toast';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import './App.css';
+import AllOrdersContextProvider from './Context/AllOrdersContext';
+import CartContextProvider from './Context/CartContext';
+import CounterContextProvider from './Context/ContextCounter';
+import WashListProvider from './Context/WashListContext';
 import AllOrders from './components/AllOrders/AllOrders';
 import Brands from './components/Brands/Brands';
 import BrandsDetails from './components/BrandsDetails/BrandsDetails';
 import Cart from './components/Cart/Cart';
 import Category from './components/Category/Category';
-import CategoryDetails from './components/CatgegoryDetails/CategoryDetails';
 import Checkout from './components/Checkout/Checkout';
 import Contact from './components/Contact/Contact';
 import Home from './components/Home/Home';
@@ -18,10 +21,6 @@ import ProductDetails from './components/ProductDetails/ProductDetails';
 import Products from './components/Products/products';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import WashList from './components/WashList/WashList';
-import AllOrdersContextProvider from './Context/AllOrdersContext';
-import CartContextProvider from './Context/CartContext';
-import CounterContextProvider from './Context/ContextCounter';
-import WashListProvider from './Context/WashListContext';
 
 function App() {
 	let query = new QueryClient();
@@ -95,14 +94,7 @@ function App() {
 						</ProtectedRoute>
 					)
 				},
-				{
-					path: 'categorydetails/:id',
-					element: (
-						<ProtectedRoute>
-							<CategoryDetails />
-						</ProtectedRoute>
-					)
-				},
+
 				{
 					path: 'productdetails/:id/:category',
 					element: (

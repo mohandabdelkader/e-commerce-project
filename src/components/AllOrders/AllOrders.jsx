@@ -6,9 +6,9 @@ export default function AllOrders() {
 
 	if (!data || !data.length) {
 		return (
-			<div className="mt-24">
-				<h1>Loading...</h1>
-			</div>
+			<h1 className="  p-20 flex justify-center  items-center h-screen">
+				<i className="fa-solid fa-spinner fa-spin text-7xl"></i>
+			</h1>
 		);
 	}
 

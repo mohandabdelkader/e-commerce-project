@@ -90,7 +90,7 @@ export default function Navbar() {
 									</Link>
 								))}
 							</nav>
-							<button onClick={logout} className="flex px-4 py-2 border border-red-500 bg-red-100 text-red-500 rounded-md mt-auto transition hover:bg-red-300 hover:text-white">
+							<button onClick={logout} className=" flex px-4 py-2 border border-red-500 bg-red-100 text-red-500 rounded-md mt-auto transition hover:bg-red-300 hover:text-white">
 								Logout
 							</button>
 						</>
