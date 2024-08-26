@@ -20,7 +20,7 @@ export default function MainSlider() {
   return (
   <>
 
-  <div className="row">
+  <div className="row mt-16">
     <div className="w-3/4">
 
     <Slider {...settings}>
