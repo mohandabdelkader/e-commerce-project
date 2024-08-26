@@ -36,7 +36,7 @@ export default function Navbar() {
 
 	return (
 		<>
-			<header className="fixed top-0 left-0 right-0 bg-white flex justify-start items-center gap-8 px-8 py-4 z-40">
+			<header className="fixed top-0 left-0 right-0 bg-white flex justify-start items-center gap-8 px-8 py-4 z-40" >
 				<Link to="/" className="flex items-center space-x-3 rtl:space-x-reverse">
 					<img src={Logo} alt="logo" className="w-20" />
 				</Link>

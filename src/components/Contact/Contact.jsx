@@ -1,4 +1,4 @@
-import * as Yup from 'Yup';
+import * as Yup from 'yup';
 import axios from 'axios';
 import { useFormik } from 'formik';
 import React, { useContext, useState } from 'react';
@@ -30,7 +30,7 @@ export default function Contact() {
 					localStorage.setItem('token', res.data.token);
 					setUserToken(res.data.token);
 
-					navigate('/About');
+					navigate('/');
 				}
 				setIsLoading(false);
 			})
